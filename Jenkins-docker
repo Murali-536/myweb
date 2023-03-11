@@ -10,7 +10,7 @@ pipeline{
     stages{
         stage("Git Checkout"){
             steps{
-                git credentialsId: 'javahome2', url: 'https://github.com/srinicloud87/myweb.git'
+                git credentialsId: 'javahome2', url: 'https://github.com/Expandable76/myweb.git'
             }
         }
         stage("Maven Build"){
@@ -40,17 +40,17 @@ pipeline{
             }
         stage('Build Docker Image'){
             steps{
-                 sh 'docker build -t srinidockerhub87/spring-boot-mongo .'
+                 sh 'docker build -t murali7036/spring-boot-mongo .'
                  sh 'docker build -t tomcat:${BUILD_NUMBER} .'
-                 sh 'docker run -itd --name srini26 -p 3900:8080 tomcat:${BUILD_NUMBER}'
+                 sh 'docker run -itd --name murali11 -p 3900:8080 tomcat:${BUILD_NUMBER}'
              }
          }
         stage('Push Docker Image'){
              steps{
                   withCredentials([string(credentialsId: 'DOCKER_HUB_CREDENTIALS', variable: 'DOCKER_HUB_CREDENTIALS')]) {
-                      sh "docker login -u srinidockerhub87 -p ${DOCKER_HUB_CREDENTIALS}"
+                      sh "docker login -u murali7036 -p ${DOCKER_HUB_CREDENTIALS}"
             }
-            sh 'docker push srinidockerhub87/spring-boot-mongo'
+            sh 'docker push murali7036/spring-boot-mongo'
         }
       }
         
